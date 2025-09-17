@@ -69,13 +69,13 @@ export interface ModalProps {
   /**
    * Callback when the modal is closed
    */
-  onClose?: (event: any) => void;
+  onClose?: (event: React.MouseEvent) => void;
   /**
    * Callback when the Cancel button is clicked
    */
-  onCancel?: (event: any) => void;
+  onCancel?: (event: React.MouseEvent) => void;
   /**
    * Callback when the Confirm button is clicked
    */
-  onConfirm?: (event: any) => void;
+  onConfirm?: (event: React.MouseEvent) => void;
 }

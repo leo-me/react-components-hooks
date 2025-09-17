@@ -5,7 +5,7 @@ import './index.scss';
 
 type Props = {
   className?: string;
-  onClick: (event: any) => void;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 const Mask: React.FC<Props> = (props) => {

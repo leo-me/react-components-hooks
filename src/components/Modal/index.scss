@@ -1,4 +1,4 @@
-@import '../../../public/css/base.scss';
+@use '../../../public/css/base.scss' as *;
 
 $header-height: 64px;
 $footer-height: 64px;

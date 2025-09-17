@@ -1,4 +1,4 @@
-@import '../../../public/css/base.scss'; // 如果原来是 less 文件，可以改成 scss 或保留 less
+@use '../../../public/css/base.scss' as *;
 
 .#{$prefix}-mask {
   position: fixed;
