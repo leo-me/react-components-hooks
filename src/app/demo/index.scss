@@ -1,0 +1,18 @@
+.demo-container {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+
+.open-btn {
+  color: black;
+
+  border: 1px solid red;
+  width: 140px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 40px;
+}

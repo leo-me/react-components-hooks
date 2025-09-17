@@ -17,5 +17,5 @@ export default function MallConfig() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  return <p>{data?.name}</p>;
+  return <p>{data?.mallName}</p>;
 }

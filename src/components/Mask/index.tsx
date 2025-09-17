@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import cls from 'classnames';
-import { cssPrefix } from '../common';
-import './index.less';
+import { cssPrefix } from '../../constants/common';
+import './index.scss';
 
 type Props = {
   className?: string;
-  onClick: (event) => void;
+  onClick: (event: any) => void;
 }
 
 const Mask: React.FC<Props> = (props) => {
@@ -16,8 +16,7 @@ const Mask: React.FC<Props> = (props) => {
     <div
       className={clazz}
       onClick={onClick}
-      catchMove
-    ></div>
+    />
   );
 };
 

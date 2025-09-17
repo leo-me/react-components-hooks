@@ -1,0 +1,35 @@
+$prefix: showcase;
+$font-color-primary: #1e1e1e;
+$bg-color-gray:#a0a0a0;
+$z-index-mask: 1000;
+
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin hairline($direction: bottom, $color: $bg-color-gray) {
+  position: relative;
+
+  @if $direction == bottom {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: $color;
+      transform: scaleY(0.5);
+    }
+  }
+}
+
+
+@mixin safe-bottom-mixin($prop: margin-bottom, $value: 0) {
+  #{$prop}: #{$value};
+  #{$prop}: calc(#{$value} + constant(safe-area-inset-bottom));
+  #{$prop}: calc(#{$value} + env(safe-area-inset-bottom));
+}

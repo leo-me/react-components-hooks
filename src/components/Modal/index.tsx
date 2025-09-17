@@ -2,10 +2,9 @@ import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import cls from 'classnames';
 import Mask from '../Mask';
-import { cssPrefix } from '../common';
-import Close from '@/static/close.svg';
+import { cssPrefix } from '../../constants/common';
 import {ModalProps} from './types';
-import './index.less';
+import './index.scss';
 
 
 
@@ -72,7 +71,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   const renderClose = () => (
     <div className={`${cssPre}-close`} onClick={onClose}>
-      <img src={Close} className={`${cssPre}-close-img`} />
+      <img src={'/close-x.svg'} className={`${cssPre}-close-img`} />
     </div>
   );
 
@@ -95,7 +94,7 @@ const Modal: React.FC<ModalProps> = (props) => {
     </>
   );
 
-  return hasPortal ? createPortal({content}, document.body): content;
+  return hasPortal ? createPortal(content, document.body): content;
 };
 
 export default Modal;

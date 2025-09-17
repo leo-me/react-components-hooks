@@ -1,0 +1,18 @@
+@import '../../../public/css/base.scss'; // 如果原来是 less 文件，可以改成 scss 或保留 less
+
+.#{$prefix}-mask {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+  z-index: $z-index-mask;
+
+  &.open {
+    height: 100%;
+    opacity: 1;
+  }
+}
