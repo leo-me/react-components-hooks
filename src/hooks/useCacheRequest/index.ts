@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 interface FetchOptions<T> {
   // function to fetch data 
-  fetcher: () => Promise<T>;
+  fetcher: (cacheKey?: string) => Promise<T>;
   // unique key to identify the request result
   cacheKey: string;
 }
@@ -60,7 +60,7 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
     fetching[cacheKey] = true;
 
     try {
-      const result = await fetcher();
+      const result = await fetcher(cacheKey);
 
       // store result in cache
       cache[cacheKey] = result;
