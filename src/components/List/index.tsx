@@ -1,4 +1,4 @@
-import { useCachedRequest } from "@/hooks/useCacheRequest/index";
+import { useCachedRequest } from "@/hooks/useCachedRequest";
 import { fetchMallConfig } from "@/services/mall";
 
 export default function List() {

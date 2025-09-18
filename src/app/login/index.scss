@@ -2,7 +2,10 @@
   background-color: white;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  color: #000;
 }
 
 
@@ -15,4 +18,9 @@
   text-align: center;
   line-height: 40px;
   margin-top: 40px;
+}
+
+
+.list-container {
+  margin-top: 20px;
 }

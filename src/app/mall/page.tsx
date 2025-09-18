@@ -1,10 +1,11 @@
 'use client';
 
 import React from "react";
-import { useCachedRequest } from "@/hooks/useCacheRequest";
+import { useCachedRequest } from "@/hooks/useCachedRequest";
 import { fetchMallConfig } from "@/services/mall";
-import Cate from "./components/cate";
-import List from "./components/List";
+import Cate from "@/components/cate";
+import List from "@/components/List";
+import './index.scss';
 
 
 
@@ -18,13 +19,14 @@ export default function Mall() {
   console.log('loading: ', loading);
 
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
-      <p>MallName: {data?.name}</p>
+    <div className="mall-container">
+      {loading && <p>Loading...</p>}
+      {!loading  && <p>MallName: {data?.name}</p>}
       <Cate />
       <List />
     </div>

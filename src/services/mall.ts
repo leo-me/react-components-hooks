@@ -39,6 +39,6 @@ export async function fetchMallConfig(mallNo?: string) {
         // Return a default or empty config if mallNo is undefined or not found
         resolve({ name: '', cateList: [], goodsList: [] });
       }
-    }, 1000);
+    }, 2000);
   });
 }

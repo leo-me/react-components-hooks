@@ -40,6 +40,11 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
     }
 
 
+
+    // otherwise, start a new request
+    setLoading(true);
+
+
     // if another request is already fetching the same cacheKey
     // wait until the request resolves
     if (fetching[cacheKey]) {
@@ -50,13 +55,13 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
       }).then((res) => {
         if (mountedRef.current) {
           setData(res as T);
+          setLoading(false);
         }
       });
     }
 
 
-    // otherwise, start a new request
-    setLoading(true);
+
     fetching[cacheKey] = true;
 
     try {
