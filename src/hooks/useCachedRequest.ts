@@ -9,7 +9,6 @@ interface FetchOptions<T> {
   cacheKey: string;
 }
 
-
 export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
   const {
     cache,
@@ -20,12 +19,12 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
     setError,
     pushToQueue,
     resolveQueue,
-  } = useRequestStore()
+  } = useRequestStore();
+
   // track whether the component is still mounted (avoid state updates after unmount)
   const mountedRef = useRef(true);
 
   async function fetchData() {
-
     // return cached data result if available
     if (cache[cacheKey]) {
       return;
@@ -33,18 +32,12 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
 
 
 
-    // otherwise, start a new request
-    setFetching(cacheKey, true)
-
-
     // if another request is already fetching the same cacheKey
     // wait until the request resolves
     if (fetching[cacheKey]) {
-
       return new Promise<T>((resolve) => {
-        if (!requestQueue[cacheKey]) requestQueue[cacheKey] = [];
-        requestQueue[cacheKey].push({ resolve: resolve as (value?: any) => void });
-      }).then((res) => {
+        pushToQueue(cacheKey, resolve as (value?: any) => void);
+      }).then(() => {
         if (mountedRef.current) {
           setFetching(cacheKey, false)
         }
@@ -52,16 +45,14 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
     }
 
 
-
-    fetching[cacheKey] = true;
+    // otherwise, start a new request
+    setFetching(cacheKey, true)
 
     try {
       const result = await fetcher(cacheKey);
 
       // store result in cache
       setCache(cacheKey, result)
-
-
 
       // resolve all queued requests waiting for this result
       resolveQueue(cacheKey, result)
