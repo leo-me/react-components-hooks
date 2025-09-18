@@ -23,13 +23,13 @@ export default function Login() {
   };
 
   const goMall = () => {
-    router?.push('/mall');
+    router?.push('/');
   };  
 
   return (
     <div className='demo-container'>
       <div className='open-btn' onClick={showModal}>open modal</div>
-      <Button  onClick={goMall}>go mall</Button>   
+      <Button onClick={goMall}>home</Button>   
       {/* <div className='open-btn' onClick={goMall}>go mall</div> */}
       <div className='list-container'>
         <List />

@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useRequestStore } from "@/store/requestStore"
+
 
 interface FetchOptions<T> {
   // function to fetch data 
@@ -7,27 +9,18 @@ interface FetchOptions<T> {
   cacheKey: string;
 }
 
-interface IRequest<T> {
-  // callback to resolve waiting requests with the fetch data
-  resolve: (value?: T) => void;
-}
-
-// global in-memory cache to store results by cacheKey
-const cache: Record<string, unknown> = {};
-
-// the queue is to store pending requests waiting for the same cacheKey result 
-const requestQueue: Record<string, IRequest<any>[]> = {};
-
-// track whether a request is in progress currently (with cacheKey)
-const fetching: Record<string, boolean> = {};
-
-
 
 export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
+  const {
+    cache,
+    fetching,
+    error,
+    setCache,
+    setFetching,
+    setError,
+    pushToQueue,
+    resolveQueue,
+  } = useRequestStore()
   // track whether the component is still mounted (avoid state updates after unmount)
   const mountedRef = useRef(true);
 
@@ -35,14 +28,13 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
 
     // return cached data result if available
     if (cache[cacheKey]) {
-      setData(cache[cacheKey] as T);
       return;
     }
 
 
 
     // otherwise, start a new request
-    setLoading(true);
+    setFetching(cacheKey, true)
 
 
     // if another request is already fetching the same cacheKey
@@ -54,8 +46,7 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
         requestQueue[cacheKey].push({ resolve: resolve as (value?: any) => void });
       }).then((res) => {
         if (mountedRef.current) {
-          setData(res as T);
-          setLoading(false);
+          setFetching(cacheKey, false)
         }
       });
     }
@@ -68,32 +59,19 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
       const result = await fetcher(cacheKey);
 
       // store result in cache
-      cache[cacheKey] = result;
+      setCache(cacheKey, result)
 
-
-      // update state if component is still mounted
-      if (mountedRef.current) {
-        setData(result);
-      }
 
 
       // resolve all queued requests waiting for this result
-      if (requestQueue[cacheKey]) {
-        requestQueue[cacheKey].forEach((req) => req.resolve(result));
-        requestQueue[cacheKey] = [];
-      }
+      resolveQueue(cacheKey, result)
     } catch (err) {
       if (mountedRef.current) {
-        setError(err as Error);
+        setError(cacheKey, err as Error)
       }
     } finally {
       // marking fetching is finished
-      fetching[cacheKey] = false;
-
-      // update the state only if component is still mounted
-      if (mountedRef.current) {
-        setLoading(false);
-      }
+      setFetching(cacheKey, false)
     }
   }
 
@@ -108,6 +86,10 @@ export function useCachedRequest<T>({ fetcher, cacheKey }: FetchOptions<T>) {
     };
   }, [cacheKey]);
 
-  return { data, loading, error };
+  return {
+    data: cache[cacheKey] as T | undefined,
+    loading: fetching[cacheKey] || false,
+    error: error[cacheKey] || null,
+  };
 }
 

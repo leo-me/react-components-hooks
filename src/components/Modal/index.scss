@@ -20,9 +20,9 @@ $modal-max-width: 600px;
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
   z-index: 1000;
-  width: 90%; // 自适应屏幕宽度
+  width: 90%; 
   max-width: $modal-max-width;
-  max-height: 80vh; // 最大高度，不超屏
+  max-height: 80vh;
 
   &_open {
     transform: translate(-50%, -50%) scale(1);
