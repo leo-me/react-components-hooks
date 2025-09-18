@@ -15,10 +15,12 @@ export default function Login() {
 
 
   const showModal = () => {
+    console.log('showModal: ');
     setOpen(true);
   };
 
   const hideModal = () => {
+    console.log('hideModal: ');
     setOpen(false);
   };
 
@@ -29,7 +31,7 @@ export default function Login() {
   return (
     <div className='demo-container'>
       <div className='open-btn' onClick={showModal}>open modal</div>
-      <Button onClick={goMall}>home</Button>   
+      <Button onClick={goMall}>go home</Button>   
       {/* <div className='open-btn' onClick={goMall}>go mall</div> */}
       <div className='list-container'>
         <List />

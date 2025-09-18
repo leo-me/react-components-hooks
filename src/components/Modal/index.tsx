@@ -41,18 +41,18 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   const maskClazz = cls({ open: isOpen }, maskClassName);
 
-  const onOverlayClick = useCallback((e) => {
+  const onOverlayClick = useCallback((e: React.MouseEvent) => {
     if (maskClosable) {
       onClose?.(e);
     }
   }, [maskClosable, onClose]);
 
-  const onCancelClick = useCallback((e) => {
+  const onCancelClick = useCallback((e: React.MouseEvent) => {
     onCancel?.(e);
     onClose?.(e);
   }, [onCancel, onClose]);
 
-  const onConfirmClick = useCallback((e) => {
+  const onConfirmClick = useCallback((e: React.MouseEvent) => {
     onConfirm?.(e);
     onClose?.(e);
   }, [onConfirm, onClose]);
