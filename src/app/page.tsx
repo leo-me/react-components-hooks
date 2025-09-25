@@ -31,7 +31,7 @@ export default function Mall() {
 
   return (
     <div className="mall-container">
-      <Button primary  onClick={goLogin}>go login</Button>   
+      <Button primary onClick={goLogin}>go login</Button>   
       
       {loading && <p>Loading...</p>}
       {!loading  && <p>MallName: {data?.name}</p>}

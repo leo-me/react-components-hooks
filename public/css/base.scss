@@ -27,9 +27,3 @@ $z-index-mask: 1000;
   }
 }
 
-
-@mixin safe-bottom-mixin($prop: margin-bottom, $value: 0) {
-  #{$prop}: #{$value};
-  #{$prop}: calc(#{$value} + constant(safe-area-inset-bottom));
-  #{$prop}: calc(#{$value} + env(safe-area-inset-bottom));
-}

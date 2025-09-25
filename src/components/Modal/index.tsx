@@ -71,7 +71,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   const renderClose = () => (
     <div className={`${cssPre}-close`} onClick={onClose}>
-      <img src={'/close-x.svg'} className={`${cssPre}-close-img`} />
+      <img src={'/imgs/close-x.svg'} className={`${cssPre}-close-img`} />
     </div>
   );
 
